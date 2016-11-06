@@ -1,6 +1,9 @@
 HOST_GOOS=$(shell go env GOOS)
 HOST_GOARCH=$(shell go env GOARCH)
 
+build: vendor
+	go build -o ./bin/dbaccessor ./dbaccessor/cmd/dbaccessor
+
 test: vendor
 	go test -cover -race $(shell ./tools/glide novendor)
 
