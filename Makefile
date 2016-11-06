@@ -17,6 +17,7 @@ vendor: tools/glide
 	./tools/glide install
 
 protoc:
+	protoc -I./auth/authpb --go_out=plugins=micro:auth/authpb auth/authpb/auth.proto
 	protoc -I./dbaccessor/dbaccessorpb --go_out=plugins=micro:dbaccessor/dbaccessorpb dbaccessor/dbaccessorpb/dbaccessor.proto
 
 tools/glide:

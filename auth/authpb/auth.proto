@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package authpb;
+
+// Authorization service. Also serves users' profile information.
+service Auth {
+  // Returns  user's profile.
+  rpc Profile (ProfileRequest) returns (ProfileResponse) {}
+}
+
+// User's name.
+message ProfileRequest {
+  string username = 1;
+}
+
+// Complete user's profile.
+message ProfileResponse {
+  string name = 1;
+  string full_name = 2;
+}
