@@ -2,6 +2,7 @@ HOST_GOOS=$(shell go env GOOS)
 HOST_GOARCH=$(shell go env GOARCH)
 
 build: vendor
+	go build -o ./bin/auth ./auth/cmd/auth
 	go build -o ./bin/dbaccessor ./dbaccessor/cmd/dbaccessor
 
 test: vendor
