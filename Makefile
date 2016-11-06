@@ -13,6 +13,9 @@ fmt: tools/glide
 vendor: tools/glide
 	./tools/glide install
 
+protoc:
+	protoc -I./dbaccessor/dbaccessorpb --go_out=plugins=micro:dbaccessor/dbaccessorpb dbaccessor/dbaccessorpb/dbaccessor.proto
+
 tools/glide:
 	@echo "Downloading glide"
 	mkdir -p tools

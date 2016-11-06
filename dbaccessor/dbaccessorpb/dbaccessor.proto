@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package dbaccessorpb;
+
+// Provides information about users.
+service UserService {
+  // Returns detailed user profile.
+  rpc GetUser (UserRequest) returns (UserResponse) {}
+}
+
+// User's name.
+message UserRequest {
+  string username = 1;
+}
+
+// Complete user profile.
+message UserResponse {
+  string name = 1;
+  string full_name = 2;
+}
