@@ -11,7 +11,7 @@ import (
 
 const (
 	Service    = "mikro.userservice"
-	UserMethod = "UserService.GetUser"
+	UserMethod = "DBAccessor.User"
 )
 
 type DBAccessor interface {

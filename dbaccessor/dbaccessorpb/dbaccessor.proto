@@ -2,10 +2,10 @@ syntax = "proto3";
 
 package dbaccessorpb;
 
-// Provides information about users.
-service UserService {
+// DBAccessor service.
+service DBAccessor {
   // Returns detailed user profile.
-  rpc GetUser (UserRequest) returns (UserResponse) {}
+  rpc User (UserRequest) returns (UserResponse) {}
 }
 
 // User's name.

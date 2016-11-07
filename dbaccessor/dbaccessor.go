@@ -21,9 +21,9 @@ func getUser(username string) (user dbaccessorpb.UserResponse, ok bool) {
 	return
 }
 
-type UserService struct{}
+type DBAccessor struct{}
 
-func (*UserService) GetUser(ctx context.Context, req *dbaccessorpb.UserRequest, rsp *dbaccessorpb.UserResponse) error {
+func (*DBAccessor) User(ctx context.Context, req *dbaccessorpb.UserRequest, rsp *dbaccessorpb.UserResponse) error {
 	u, ok := getUser(req.Username)
 	if !ok {
 		return errors.NotFound("", fmt.Sprintf("user %s not found", req.Username))

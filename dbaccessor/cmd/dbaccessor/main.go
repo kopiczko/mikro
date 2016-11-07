@@ -16,7 +16,7 @@ func main() {
 		server.Name(ServiceName),
 	)
 	server.Handle(server.NewHandler(
-		new(dbaccessor.UserService),
+		new(dbaccessor.DBAccessor),
 	))
 	if err := server.Run(); err != nil {
 		log.Fatal(err)

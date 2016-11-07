@@ -22,7 +22,7 @@ func TestMain(m *testing.M) {
 		server.Registry(reg),
 	)
 	server.Handle(server.NewHandler(
-		new(dbaccessor.UserService),
+		new(dbaccessor.DBAccessor),
 	))
 	if err := server.Start(); err != nil {
 		log.Fatal(err)
