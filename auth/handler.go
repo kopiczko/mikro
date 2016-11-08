@@ -4,44 +4,32 @@ import (
 	"fmt"
 
 	"github.com/kopiczko/mikro/auth/authpb"
-	"github.com/kopiczko/mikro/dbaccessor/dbaccessorpb"
-	"github.com/micro/go-micro/client"
+	"github.com/kopiczko/mikro/dbaccessor/client"
 	"github.com/micro/go-micro/errors"
 	"golang.org/x/net/context"
 )
 
 const (
-	id             = "mikro.auth"
-	serviceName    = "mikro.userservice"
-	serviceGetUser = "UserService.GetUser"
+	ServiceName = "mikro.auth"
 )
 
-func getProfile(username string) (profile authpb.ProfileResponse, ok bool, err error) {
-	req := client.NewRequest(serviceName, serviceGetUser, &dbaccessorpb.UserRequest{
-		Username: username,
-	})
-	var rsp dbaccessorpb.UserResponse
-	if err = client.Call(context.Background(), req, &rsp); err != nil {
-		rpcErr := errors.Parse(err.Error())
-		if rpcErr.Code == 404 {
-			return profile, false, nil
-		}
-		return profile, false, err
-	}
-	profile.Name = rsp.Name
-	profile.FullName = rsp.FullName
-	return profile, true, nil
+type Auth struct {
+	dbAccessor client.DBAccessor
 }
 
-type Auth struct{}
+func New(dbAccessor client.DBAccessor) *Auth {
+	return &Auth{
+		dbAccessor: dbAccessor,
+	}
+}
 
-func (*Auth) Profile(ctx context.Context, req *authpb.ProfileRequest, rsp *authpb.ProfileResponse) error {
-	p, ok, err := getProfile(req.Username)
+func (a *Auth) Profile(ctx context.Context, req *authpb.ProfileRequest, rsp *authpb.ProfileResponse) error {
+	p, ok, err := a.dbAccessor.User(ctx, req.Username)
 	if err != nil {
-		return errors.InternalServerError(id, err.Error())
+		return errors.InternalServerError(ServiceName, err.Error())
 	}
 	if !ok {
-		return errors.NotFound(id, fmt.Sprintf("user %s not found", req.Username))
+		return errors.NotFound(ServiceName, fmt.Sprintf("user %s not found", req.Username))
 	}
 	rsp.Name = p.Name
 	rsp.FullName = p.FullName

@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/kopiczko/mikro/auth"
+	"github.com/kopiczko/mikro/dbaccessor/client"
 	"github.com/micro/go-micro/cmd"
 	"github.com/micro/go-micro/server"
 )
@@ -15,8 +16,12 @@ func main() {
 	server.Init(
 		server.Name(AuthName),
 	)
+	config := server.DefaultOptions()
+
+	dbAccessor := client.NewDBAccessor(config.Registry)
+
 	server.Handle(server.NewHandler(
-		new(auth.Auth),
+		auth.New(dbAccessor),
 	))
 	if err := server.Run(); err != nil {
 		log.Fatal(err)
