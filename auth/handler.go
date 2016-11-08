@@ -3,10 +3,10 @@ package auth
 import (
 	"fmt"
 
-	"github.com/go-micro/client"
-	"github.com/go-micro/errors"
 	"github.com/kopiczko/mikro/auth/authpb"
 	"github.com/kopiczko/mikro/dbaccessor/dbaccessorpb"
+	"github.com/micro/go-micro/client"
+	"github.com/micro/go-micro/errors"
 	"golang.org/x/net/context"
 )
 

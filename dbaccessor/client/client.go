@@ -3,9 +3,9 @@ package client
 import (
 	"context"
 
-	"github.com/go-micro/client"
-	"github.com/go-micro/errors"
 	"github.com/kopiczko/mikro/dbaccessor/dbaccessorpb"
+	"github.com/micro/go-micro/client"
+	"github.com/micro/go-micro/errors"
 	"github.com/micro/go-micro/registry"
 )
 

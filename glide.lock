@@ -1,6 +1,67 @@
-hash: 0c01f14845b60bd8d19abe1fbb64859d9fd10ca988de0d203230a5e1e56c7881
-updated: 2016-11-02T15:20:09.216884801+01:00
+hash: cfe2aae6102135e93174a58ebfc1030da347fe4dc915fb796e4ab6e215edefd3
+updated: 2016-11-08T10:19:03.10784527+01:00
 imports:
 - name: github.com/dgrijalva/jwt-go
   version: d2709f9f1f31ebcda9651b03077758c1f3a0018c
-devImports: []
+- name: github.com/golang/protobuf
+  version: 2bc9827a78f95c6665b5fe0abd1fd66b496ae2d8
+  subpackages:
+  - proto
+- name: github.com/hashicorp/consul
+  version: eda05a4fccb4d8058b3500f975bff5e9b1a43beb
+  subpackages:
+  - api
+  - watch
+- name: github.com/hashicorp/go-cleanhttp
+  version: ad28ea4487f05916463e2423a55166280e8254b5
+- name: github.com/hashicorp/serf
+  version: e0680ca729b018b791af1add413faebe3e1c147e
+  subpackages:
+  - coordinate
+- name: github.com/micro/cli
+  version: 3d2263bb092286dde294a31049c92665f8373820
+- name: github.com/micro/go-micro
+  version: d1d41b5a67d60a5b94a1f80325f9656232e1097b
+  subpackages:
+  - broker
+  - broker/http
+  - client
+  - cmd
+  - codec
+  - codec/jsonrpc
+  - codec/protorpc
+  - errors
+  - metadata
+  - registry
+  - registry/consul
+  - registry/mdns
+  - registry/mock
+  - selector
+  - selector/cache
+  - server
+  - server/debug
+  - server/debug/proto
+  - transport
+  - transport/http
+- name: github.com/micro/mdns
+  version: cdf30746f9f70dc7a366d3d885792a092fd83102
+- name: github.com/micro/misc
+  version: 677e2a0beb40a3dd7418548fe0cdc661e2922859
+  subpackages:
+  - lib/tls
+- name: github.com/miekg/dns
+  version: 58f52c57ce9df13460ac68200cef30a008b9c468
+- name: github.com/mitchellh/hashstructure
+  version: b098c52ef6beab8cd82bc4a32422cf54b890e8fa
+- name: github.com/pborman/uuid
+  version: 3d4f2ba23642d3cfd06bd4b54cf03d99d95c0f1b
+- name: golang.org/x/net
+  version: 87635b2611e4683a6f0aa595c36683021a00b2e4
+  subpackages:
+  - bpf
+  - context
+  - internal/iana
+  - internal/netreflect
+  - ipv4
+  - ipv6
+testImports: []

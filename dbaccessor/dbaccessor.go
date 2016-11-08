@@ -5,8 +5,8 @@ import (
 
 	"golang.org/x/net/context"
 
-	"github.com/go-micro/errors"
 	"github.com/kopiczko/mikro/dbaccessor/dbaccessorpb"
+	"github.com/micro/go-micro/errors"
 )
 
 var fixtures = map[string]dbaccessorpb.UserResponse{

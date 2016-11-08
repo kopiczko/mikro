@@ -7,11 +7,11 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/go-micro/registry/mock"
-	"github.com/go-micro/server"
 	"github.com/kopiczko/mikro/dbaccessor"
 	cmd "github.com/kopiczko/mikro/dbaccessor/cmd/dbaccessor"
 	"github.com/kopiczko/mikro/dbaccessor/dbaccessorpb"
+	"github.com/micro/go-micro/registry/mock"
+	"github.com/micro/go-micro/server"
 )
 
 var reg = mock.NewRegistry()
