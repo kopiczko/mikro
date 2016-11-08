@@ -24,6 +24,6 @@ protoc:
 tools/glide:
 	@echo "Downloading glide"
 	mkdir -p tools
-	curl -L https://github.com/Masterminds/glide/releases/download/0.10.2/glide-0.10.2-$(HOST_GOOS)-$(HOST_GOARCH).tar.gz | tar -xz -C tools
+	curl -L https://github.com/Masterminds/glide/releases/download/v0.12.3/glide-v0.12.3-$(HOST_GOOS)-$(HOST_GOARCH).tar.gz | tar -xz -C tools
 	mv tools/$(HOST_GOOS)-$(HOST_GOARCH)/glide tools/glide
 	rm -r tools/$(HOST_GOOS)-$(HOST_GOARCH)
