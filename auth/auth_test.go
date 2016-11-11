@@ -14,9 +14,9 @@ func TestCreateToken(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected CreateToken error = %s", err)
 	}
-	user, err := readUser(token)
+	user, err := ReadUser(token)
 	if err != nil {
-		t.Fatalf("unexpected readUser error = %s", err)
+		t.Fatalf("unexpected ReadUser error = %s", err)
 	}
 	if user != "pawel" {
 		log.Fatalf("get %v, want pawel", user)
@@ -37,7 +37,7 @@ func TestReadUser_BadSecret(t *testing.T) {
 
 	// Change the secret.
 	secret = []byte("bad secret")
-	_, err = readUser(token)
+	_, err = ReadUser(token)
 	werr := AuthError{Err: ErrParseToken}
 	if !reflect.DeepEqual(clearedDetails(err), werr) {
 		t.Fatalf("got %v, want %v", err, werr)
@@ -60,7 +60,7 @@ func TestReadUser_BadToken(t *testing.T) {
 		},
 	}
 	for i, tt := range tests {
-		_, err := readUser(tt.Token)
+		_, err := ReadUser(tt.Token)
 		if !reflect.DeepEqual(clearedDetails(err), tt.Error) {
 			t.Errorf("#%d: got %v, want %v", i, err, tt.Error)
 		}
@@ -86,7 +86,7 @@ func TestReadUser_BadClaims(t *testing.T) {
 		if err != nil {
 			t.Errorf("#%d: unexpected SignedString error = %v", i, err)
 		}
-		_, err = readUser(token)
+		_, err = ReadUser(token)
 		if !reflect.DeepEqual(clearedDetails(err), tt.Error) {
 			t.Errorf("#%d: got %v, want %v", i, err, tt.Error)
 		}

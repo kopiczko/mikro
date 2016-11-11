@@ -41,8 +41,8 @@ func createToken(claims jwt.MapClaims) (string, error) {
 	return token.SignedString(secret)
 }
 
-// readUser reads username claim from the token.
-func readUser(token string) (string, error) {
+// ReadUser reads username claim from the token.
+func ReadUser(token string) (string, error) {
 	t, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
 		// Check singing method.
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
