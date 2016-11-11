@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package apppb;
+
+// Authorization service. Also serves users' profile information.
+service App {
+  // Retruns a to-do list for an authenticated user, i.e. sending valid JWT
+  // token in authorization metadata.
+  rpc TODOList (TODOListRequest) returns (TODOListResponse) {}
+}
+
+message TODOListRequest {
+}
+
+message TODOListResponse {
+  repeated string items = 1;
+}

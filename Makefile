@@ -2,6 +2,7 @@ HOST_GOOS=$(shell go env GOOS)
 HOST_GOARCH=$(shell go env GOARCH)
 
 build: vendor
+	go build -o ./bin/app ./app/cmd/app
 	go build -o ./bin/auth ./auth/cmd/auth
 	go build -o ./bin/dbaccessor ./dbaccessor/cmd/dbaccessor
 
@@ -18,6 +19,7 @@ vendor: tools/glide
 	./tools/glide install
 
 protoc:
+	protoc -I./app/apppb --go_out=plugins=micro:app/apppb app/apppb/app.proto
 	protoc -I./auth/authpb --go_out=plugins=micro:auth/authpb auth/authpb/auth.proto
 	protoc -I./dbaccessor/dbaccessorpb --go_out=plugins=micro:dbaccessor/dbaccessorpb dbaccessor/dbaccessorpb/dbaccessor.proto
 
