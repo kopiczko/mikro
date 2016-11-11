@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	Service    = "mikro.userservice"
+	Service    = "mikro.dbaccessor"
 	UserMethod = "DBAccessor.User"
 )
 

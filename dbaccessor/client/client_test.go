@@ -8,7 +8,6 @@ import (
 	"testing"
 
 	"github.com/kopiczko/mikro/dbaccessor"
-	cmd "github.com/kopiczko/mikro/dbaccessor/cmd/dbaccessor"
 	"github.com/kopiczko/mikro/dbaccessor/dbaccessorpb"
 	"github.com/micro/go-micro/registry/mock"
 	"github.com/micro/go-micro/server"
@@ -18,7 +17,7 @@ var reg = mock.NewRegistry()
 
 func TestMain(m *testing.M) {
 	server.Init(
-		server.Name(cmd.ServiceName),
+		server.Name(dbaccessor.ServiceName),
 		server.Registry(reg),
 	)
 	server.Handle(server.NewHandler(

@@ -9,6 +9,9 @@ import (
 	"github.com/micro/go-micro/errors"
 )
 
+// Service name registered in micro.
+const ServiceName = "mikro.dbaccessor"
+
 var fixtures = map[string]dbaccessorpb.UserResponse{
 	"pawel": dbaccessorpb.UserResponse{
 		Name:     "pawel",

@@ -9,9 +9,8 @@ import (
 	"golang.org/x/net/context"
 )
 
-const (
-	ServiceName = "mikro.auth"
-)
+// Service name registered in micro.
+const ServiceName = "mikro.auth"
 
 type Auth struct {
 	dbAccessor client.DBAccessor

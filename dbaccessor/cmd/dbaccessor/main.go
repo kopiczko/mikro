@@ -8,12 +8,10 @@ import (
 	"github.com/micro/go-micro/server"
 )
 
-const ServiceName = "mikro.userservice"
-
 func main() {
 	cmd.Init()
 	server.Init(
-		server.Name(ServiceName),
+		server.Name(dbaccessor.ServiceName),
 	)
 	server.Handle(server.NewHandler(
 		new(dbaccessor.DBAccessor),

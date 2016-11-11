@@ -9,7 +9,6 @@ import (
 
 	handler "github.com/kopiczko/mikro/auth"
 	"github.com/kopiczko/mikro/auth/authpb"
-	cmd "github.com/kopiczko/mikro/auth/cmd/auth"
 	"github.com/kopiczko/mikro/dbaccessor/dbaccessorpb"
 	"github.com/micro/go-micro/registry/mock"
 	"github.com/micro/go-micro/server"
@@ -38,7 +37,7 @@ var (
 
 func TestMain(m *testing.M) {
 	server.Init(
-		server.Name(cmd.ServiceName),
+		server.Name(handler.ServiceName),
 		server.Registry(reg),
 	)
 	server.Handle(server.NewHandler(

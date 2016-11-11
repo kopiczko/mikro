@@ -9,12 +9,10 @@ import (
 	"github.com/micro/go-micro/server"
 )
 
-const ServiceName = "mikro.auth"
-
 func main() {
 	cmd.Init()
 	server.Init(
-		server.Name(ServiceName),
+		server.Name(auth.ServiceName),
 	)
 	config := server.DefaultOptions()
 
