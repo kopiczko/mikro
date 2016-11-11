@@ -4,8 +4,20 @@ package dbaccessorpb;
 
 // DBAccessor service.
 service DBAccessor {
+  // Returns to-do list for a user.
+  rpc TODOList(TODOListRequest) returns (TODOListResponse) {}
   // Returns detailed user profile.
   rpc User (UserRequest) returns (UserResponse) {}
+}
+
+// User's name.
+message TODOListRequest {
+  string username = 1;
+}
+
+// User's to-do list items.
+message TODOListResponse {
+  repeated string items = 1;
 }
 
 // User's name.

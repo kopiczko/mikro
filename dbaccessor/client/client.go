@@ -10,11 +10,15 @@ import (
 )
 
 const (
-	Service    = "mikro.dbaccessor"
-	UserMethod = "DBAccessor.User"
+	Service        = "mikro.dbaccessor"
+	TODOListMethod = "DBAccessor.TODOList"
+	UserMethod     = "DBAccessor.User"
 )
 
 type DBAccessor interface {
+	// TODOList returns the user's to-do list itemes. When user is not
+	// found error is returned.
+	TODOList(ctx context.Context, username string) (dbaccessorpb.TODOListResponse, error)
 	// User returns UserResponse for a user's name. ok is set when user is found.
 	User(ctx context.Context, name string) (user dbaccessorpb.UserResponse, ok bool, err error)
 }
@@ -27,6 +31,15 @@ func NewDBAccessor(r registry.Registry) DBAccessor {
 
 type dbAccessor struct {
 	client.Client
+}
+
+func (c *dbAccessor) TODOList(ctx context.Context, username string) (dbaccessorpb.TODOListResponse, error) {
+	req := c.NewRequest(Service, TODOListMethod, &dbaccessorpb.TODOListRequest{
+		Username: username,
+	})
+	var rsp dbaccessorpb.TODOListResponse
+	err := c.Call(ctx, req, &rsp)
+	return rsp, err
 }
 
 func (c *dbAccessor) User(ctx context.Context, name string) (user dbaccessorpb.UserResponse, ok bool, err error) {

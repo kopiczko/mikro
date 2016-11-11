@@ -2,6 +2,7 @@ package client
 
 import (
 	"context"
+	"errors"
 	"log"
 	"os"
 	"reflect"
@@ -23,6 +24,10 @@ type dbAccessorResp struct {
 type dbAccessorMock struct {
 	LastUserName string         // value of name argument from last User call.
 	UserResp     dbAccessorResp // Response to return on User call.
+}
+
+func (d *dbAccessorMock) TODOList(ctx context.Context, username string) (dbaccessorpb.TODOListResponse, error) {
+	return dbaccessorpb.TODOListResponse{}, errors.New("dbAccessorMock.TODOList not implemented")
 }
 
 func (d *dbAccessorMock) User(ctx context.Context, name string) (user dbaccessorpb.UserResponse, ok bool, err error) {

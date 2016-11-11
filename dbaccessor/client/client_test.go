@@ -35,7 +35,41 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-func TestDBAccessor(t *testing.T) {
+func TestDBAccessorTODOList(t *testing.T) {
+	tests := []struct {
+		Username string
+		Found    bool
+	}{
+		{
+			Username: "pawel",
+			Found:    true,
+		},
+		{
+			Username: "you_do_not_know_who",
+			Found:    false,
+		},
+	}
+
+	c := NewDBAccessor(reg)
+
+	for i, tt := range tests {
+		todoList, err := c.TODOList(context.TODO(), tt.Username)
+		if tt.Found {
+			if err != nil {
+				t.Fatalf("#%d: unexpected User error = %v", i, err)
+			}
+			if todoList.Items == nil {
+				t.Errorf("#%d: got items = nil, want non-nil slice", i)
+			}
+		} else {
+			if err == nil {
+				t.Errorf("#%d: got error = nil, want non-nil", i)
+			}
+		}
+	}
+}
+
+func TestDBAccessorUser(t *testing.T) {
 	tests := []struct {
 		Username string
 		OK       bool
