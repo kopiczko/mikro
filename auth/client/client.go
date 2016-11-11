@@ -11,10 +11,14 @@ import (
 
 const (
 	Service       = "mikro.auth"
+	LoginMethod   = "Auth.Login"
 	ProfileMethod = "Auth.Profile"
 )
 
 type Auth interface {
+	// Login returns a token for the username authenticated with the
+	// password. Currently the password is not checked.
+	Login(ctx context.Context, username, password string) (token string, err error)
 	// User returns UserResponse for a user's name. ok is set when user is found.
 	Profile(ctx context.Context, name string) (user authpb.ProfileResponse, ok bool, err error)
 }
@@ -27,6 +31,16 @@ func NewAuth(r registry.Registry) Auth {
 
 type auth struct {
 	client.Client
+}
+
+func (c *auth) Login(ctx context.Context, username, password string) (token string, err error) {
+	req := c.NewRequest(Service, LoginMethod, &authpb.LoginRequest{
+		Username: username,
+		Password: password,
+	})
+	var rsp authpb.LoginResponse
+	err = c.Call(ctx, req, &rsp)
+	return rsp.Token, err
 }
 
 func (c *auth) Profile(ctx context.Context, name string) (user authpb.ProfileResponse, ok bool, err error) {

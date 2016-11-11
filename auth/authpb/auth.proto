@@ -4,8 +4,21 @@ package authpb;
 
 // Authorization service. Also serves users' profile information.
 service Auth {
+  // Authenticates the user.
+  // CAUTION: Current implementation does not check password, it blindly
+  // creates token for the user.
+  rpc Login (LoginRequest) returns (LoginResponse) {}
   // Returns  user's profile.
   rpc Profile (ProfileRequest) returns (ProfileResponse) {}
+}
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
 }
 
 // User's name.

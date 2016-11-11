@@ -23,6 +23,16 @@ func New(dbAccessor client.DBAccessor) *Auth {
 	}
 }
 
+func (a *Auth) Login(ctx context.Context, req *authpb.LoginRequest, rsp *authpb.LoginResponse) error {
+	// TODO: challenge req.Password
+	token, err := CreateToken(req.Username)
+	if err != nil {
+		return err
+	}
+	rsp.Token = token
+	return nil
+}
+
 func (a *Auth) Profile(ctx context.Context, req *authpb.ProfileRequest, rsp *authpb.ProfileResponse) error {
 	p, ok, err := a.dbAccessor.User(ctx, req.Username)
 	if err != nil {

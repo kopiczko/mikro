@@ -56,7 +56,18 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-func TestAuth(t *testing.T) {
+func TestAuthLogin(t *testing.T) {
+	c := NewAuth(reg)
+	token, err := c.Login(context.TODO(), "pawel", "currently_not_checked")
+	if err != nil {
+		t.Fatalf("unexpected Login error = %v", err)
+	}
+	if token == "" {
+		t.Errorf("want non-empty token")
+	}
+}
+
+func TestAuthProfile(t *testing.T) {
 	tests := []struct {
 		DBAccessorResp dbAccessorResp
 		Username       string
