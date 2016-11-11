@@ -19,14 +19,20 @@ var (
 	ErrMalformedAuthorizationMetadata = AuthorizationKey + " metadata is not a Bearer token"
 )
 
-// Authorizer provides convenience methods for dealing with JWT tokens inside grpc metadata.
-// All errors returned by implemetations should be micro framework compatibile.
+// WithAuthorization creates new context with authorization metadata filled with JWT token.
+func WithToken(ctx context.Context, token string) context.Context {
+	md, ok := metadata.FromContext(ctx)
+	if !ok {
+		md = metadata.Metadata(map[string]string{
+			AuthorizationKey: bearerPrefix + token,
+		})
+	}
+	return metadata.NewContext(ctx, md)
+}
+
+// Authorizer provides convenience method for extracting username from request context metadata.
+// When it returns error it is micro framework compatible and have Unauthorized status.
 type Authorizer interface {
-	// WithAuthorization creates new context with authorization metadata set with token.
-	// When it returns error it is with InternalServerError status.
-	WithAuthorization(ctx context.Context, username string) (context.Context, error)
-	// Extracts username from authorization metadata. When it returns error it is with
-	// Unauthorized status.
 	FromContext(context.Context) (username string, err error)
 }
 
@@ -39,20 +45,6 @@ func NewAuthorizer(serviceID string) Authorizer {
 
 type authorizer struct {
 	serviceID string
-}
-
-func (a authorizer) WithAuthorization(ctx context.Context, username string) (context.Context, error) {
-	token, err := CreateToken(username)
-	if err != nil {
-		return ctx, errors.InternalServerError(a.serviceID, err.Error())
-	}
-	md, ok := metadata.FromContext(ctx)
-	if !ok {
-		md = metadata.Metadata(map[string]string{
-			AuthorizationKey: bearerPrefix + token,
-		})
-	}
-	return metadata.NewContext(ctx, md), nil
 }
 
 func (a authorizer) FromContext(ctx context.Context) (string, error) {

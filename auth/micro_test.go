@@ -11,11 +11,12 @@ import (
 )
 
 func TestAuhtorizer(t *testing.T) {
-	a := NewAuthorizer("test.service")
-	ctx, err := a.WithAuthorization(context.TODO(), "pawel")
+	token, err := CreateToken("pawel")
 	if err != nil {
-		t.Fatalf("unexpected WithAuthorization error = %v", err)
+		t.Fatalf("unexpected CreateToken error = %v", err)
 	}
+	ctx := WithToken(context.TODO(), token)
+	a := NewAuthorizer("test.service")
 	user, err := a.FromContext(ctx)
 	if err != nil {
 		t.Fatalf("unexpected FromContext error = %v", err)
