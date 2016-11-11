@@ -4,8 +4,6 @@ import (
 	"github.com/kopiczko/mikro/app/apppb"
 	"github.com/kopiczko/mikro/auth"
 	dbaccessor "github.com/kopiczko/mikro/dbaccessor/client"
-	"github.com/micro/go-micro/errors"
-	"github.com/micro/go-micro/metadata"
 	"golang.org/x/net/context"
 )
 
@@ -18,27 +16,21 @@ var (
 )
 
 type App struct {
+	authorizer auth.Authorizer
 	dbAccessor dbaccessor.DBAccessor
 }
 
 func New(dbAccessor dbaccessor.DBAccessor) *App {
 	return &App{
+		authorizer: auth.NewAuthorizer(ServiceName),
 		dbAccessor: dbAccessor,
 	}
 }
 
 func (a *App) TODOList(ctx context.Context, req *apppb.TODOListRequest, rsp *apppb.TODOListResponse) error {
-	md, ok := metadata.FromContext(ctx)
-	if !ok {
-		return errors.Unauthorized(ServiceName, ErrMissingMetadata)
-	}
-	token, ok := md["authorization"]
-	if !ok {
-		return errors.Unauthorized(ServiceName, ErrAuthorizationMetadataNotFound)
-	}
-	user, err := auth.ReadUser(token)
+	user, err := a.authorizer.FromContext(ctx)
 	if err != nil {
-		return errors.Unauthorized(ServiceName, err.Error())
+		return err
 	}
 	todoList, err := a.dbAccessor.TODOList(ctx, user)
 	if err != nil {
