@@ -1,4 +1,4 @@
-# micro
+# mikro
 
 Example microservice application build on top of [go-micro][1].
 
