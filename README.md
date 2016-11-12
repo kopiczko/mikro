@@ -2,12 +2,12 @@
 
 Example microservice application build on top of [go-micro][1].
 
-# Requirements
+## Requirements
 
 * Go 1.7
 * make
 
-# Running Examples
+## Running Examples
 
 Examples are running with usage of mDNS registry to avoid setting up another discovery service.
 
