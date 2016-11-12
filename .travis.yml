@@ -1,0 +1,12 @@
+language: go
+
+go:
+- 1.7.3
+- tip
+
+script:
+  - make vet
+  - make test
+
+notifications:
+  email: false
