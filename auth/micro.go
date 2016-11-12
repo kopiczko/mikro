@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	AuthorizationKey = "authorization" // Authorization context metadata key.
+	AuthorizationKey = "Authorization" // Authorization context metadata key.
 	bearerPrefix     = "Bearer "
 )
 
@@ -23,10 +23,9 @@ var (
 func WithToken(ctx context.Context, token string) context.Context {
 	md, ok := metadata.FromContext(ctx)
 	if !ok {
-		md = metadata.Metadata(map[string]string{
-			AuthorizationKey: bearerPrefix + token,
-		})
+		md = metadata.Metadata{}
 	}
+	md[AuthorizationKey] = bearerPrefix + token
 	return metadata.NewContext(ctx, md)
 }
 
