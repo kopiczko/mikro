@@ -12,6 +12,7 @@ import (
 	"github.com/kopiczko/mikro/app/apppb"
 	"github.com/kopiczko/mikro/auth"
 	"github.com/kopiczko/mikro/dbaccessor/dbaccessorpb"
+	"github.com/micro/go-micro/client"
 	merrors "github.com/micro/go-micro/errors"
 	"github.com/micro/go-micro/registry/mock"
 	"github.com/micro/go-micro/server"
@@ -112,7 +113,7 @@ func TestAppTODOList(t *testing.T) {
 		},
 	}
 
-	c := NewApp(reg)
+	c := NewApp(client.Registry(reg))
 	defer func() { dbAccessor.DBAccessorResp = dbAccessorResp{} }()
 
 	for i, tt := range tests {

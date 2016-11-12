@@ -6,7 +6,6 @@ import (
 	"github.com/kopiczko/mikro/app/apppb"
 	"github.com/kopiczko/mikro/auth"
 	"github.com/micro/go-micro/client"
-	"github.com/micro/go-micro/registry"
 )
 
 const (
@@ -21,9 +20,9 @@ type App interface {
 	TODOList(ctx context.Context, token string) (apppb.TODOListResponse, error)
 }
 
-func NewApp(r registry.Registry) App {
+func NewApp(opt ...client.Option) App {
 	return &app{
-		Client: client.NewClient(client.Registry(r)),
+		Client: client.NewClient(opt...),
 	}
 }
 

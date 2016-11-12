@@ -14,9 +14,8 @@ func main() {
 	server.Init(
 		server.Name(auth.ServiceName),
 	)
-	config := server.DefaultOptions()
 
-	dbAccessor := client.NewDBAccessor(config.Registry)
+	dbAccessor := client.NewDBAccessor()
 
 	server.Handle(server.NewHandler(
 		auth.New(dbAccessor),

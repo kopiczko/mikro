@@ -6,7 +6,6 @@ import (
 	"github.com/kopiczko/mikro/dbaccessor/dbaccessorpb"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
-	"github.com/micro/go-micro/registry"
 )
 
 const (
@@ -23,9 +22,9 @@ type DBAccessor interface {
 	User(ctx context.Context, name string) (user dbaccessorpb.UserResponse, ok bool, err error)
 }
 
-func NewDBAccessor(r registry.Registry) DBAccessor {
+func NewDBAccessor(opt ...client.Option) DBAccessor {
 	return &dbAccessor{
-		Client: client.NewClient(client.Registry(r)),
+		Client: client.NewClient(opt...),
 	}
 }
 

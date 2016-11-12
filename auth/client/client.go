@@ -6,7 +6,6 @@ import (
 	"github.com/kopiczko/mikro/auth/authpb"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/errors"
-	"github.com/micro/go-micro/registry"
 )
 
 const (
@@ -23,9 +22,9 @@ type Auth interface {
 	Profile(ctx context.Context, name string) (user authpb.ProfileResponse, ok bool, err error)
 }
 
-func NewAuth(r registry.Registry) Auth {
+func NewAuth(opt ...client.Option) Auth {
 	return &auth{
-		Client: client.NewClient(client.Registry(r)),
+		Client: client.NewClient(opt...),
 	}
 }
 

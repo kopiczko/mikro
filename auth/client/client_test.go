@@ -11,6 +11,7 @@ import (
 	handler "github.com/kopiczko/mikro/auth"
 	"github.com/kopiczko/mikro/auth/authpb"
 	"github.com/kopiczko/mikro/dbaccessor/dbaccessorpb"
+	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/registry/mock"
 	"github.com/micro/go-micro/server"
 )
@@ -61,7 +62,7 @@ func TestMain(m *testing.M) {
 }
 
 func TestAuthLogin(t *testing.T) {
-	c := NewAuth(reg)
+	c := NewAuth(client.Registry(reg))
 	token, err := c.Login(context.TODO(), "pawel", "currently_not_checked")
 	if err != nil {
 		t.Fatalf("unexpected Login error = %v", err)
@@ -100,7 +101,7 @@ func TestAuthProfile(t *testing.T) {
 		},
 	}
 
-	c := NewAuth(reg)
+	c := NewAuth(client.Registry(reg))
 	defer func() { dbAccessor.UserResp = dbAccessorResp{} }()
 
 	for i, tt := range tests {

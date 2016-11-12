@@ -9,6 +9,7 @@ import (
 
 	"github.com/kopiczko/mikro/dbaccessor"
 	"github.com/kopiczko/mikro/dbaccessor/dbaccessorpb"
+	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/registry/mock"
 	"github.com/micro/go-micro/server"
 )
@@ -50,7 +51,7 @@ func TestDBAccessorTODOList(t *testing.T) {
 		},
 	}
 
-	c := NewDBAccessor(reg)
+	c := NewDBAccessor(client.Registry(reg))
 
 	for i, tt := range tests {
 		todoList, err := c.TODOList(context.TODO(), tt.Username)
@@ -89,7 +90,7 @@ func TestDBAccessorUser(t *testing.T) {
 		},
 	}
 
-	c := NewDBAccessor(reg)
+	c := NewDBAccessor(client.Registry(reg))
 
 	for i, tt := range tests {
 		user, ok, err := c.User(context.TODO(), tt.Username)
