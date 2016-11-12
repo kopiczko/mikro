@@ -1,5 +1,7 @@
 # mikro
 
+[![Build Status](https://travis-ci.org/kopiczko/mikro.svg?branch=master)](https://travis-ci.org/kopiczko/mikro)
+
 Example microservice application build on top of [go-micro][1].
 
 ## Requirements
